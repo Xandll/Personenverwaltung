@@ -10,12 +10,15 @@ typedef struct Person {
 
 void readfile(char** newBuffer);
 
+void ToStruct(char** Data, pers* p);
+
 int main()
 {
     char *Data;
     readfile(&Data);
-    printf("%s", Data);
-	
+    pers p;
+    ToStruct(&Data, &p);
+	printf("%s", Data);
     printf("\n");
 	return 0;
 }
@@ -56,11 +59,21 @@ void readfile(char** newBuffer) {
             return;
     }
     strcpy(*newBuffer, buffer + i + 1);
-    
-    printf("%s", *newBuffer);
-
     free(buffer);
-    free(*newBuffer);
+    //free(*newBuffer);
+}
+
+void ToStruct(char** Data, pers* p) {
+    const char s[2] = ";";
+    char *token;
+   
+    token = strtok(*Data, s);
+   
+    while (token != NULL) {
+        printf("%s\n", token);
+        token = strtok(NULL, s);
+    }
+    printf("Remaining Data: %s\n", *Data); // Debug-Ausgabe
 }
 
 /*void funktion(pers* p, int *length, int *j, char *i, int *k, char **file) {
